@@ -31,6 +31,9 @@ class PricesDataFrame():
     def correlation(self):
         return self.returns().corr()
 
+    def sharpe(self, risk_free_rate):
+        return pd.DataFrame((self.mean_returns().values - risk_free_rate) / self.variance().values, columns=['sharpe'], index=self.mean_returns().index)
+
     def portfolio_return(self, weights):
         weights = pd.DataFrame(weights)
         return pd.DataFrame(self.mean_returns().values*weights.values, columns=['portfolio_return'], index=weights.index).sum()[0]
